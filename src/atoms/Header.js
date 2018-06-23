@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-class Summary extends Component {
+class Header extends Component {
   render() {
     return (
       <div className={this.props.className}>
-        Summary
+        {this.props.children}
       </div>
     );
   }
 }
 
-const SummaryS = styled(Summary)`
+const HeaderS = styled(Header)`
+  width: 100%;
+  height: 70px;
   display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
-export default SummaryS;
+export default HeaderS;

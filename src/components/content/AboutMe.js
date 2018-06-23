@@ -5,7 +5,7 @@ class AboutMe extends Component {
   render() {
     return (
       <div className={this.props.className}>
-        AboutMe
+        About Me
       </div>
     );
   }

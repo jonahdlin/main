@@ -1,39 +1,32 @@
 import React, { Component } from 'react';
 import { IDS } from './constants';
-import TabPanel from './components/TabPanel';
-import { Summary, AboutMe, Projects, Resume } from './content';
+import WithHorizontalScrolling from './hocs/WithHorizontalScrolling';
+import WideView from './components/WideView';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentContent: IDS.SUMMARY
+      currentContent: IDS.SUMMARY,
+      shift: 0,
     };
   }
 
-  renderContent() {
-    switch(this.state.currentContent) {
-      case IDS.ABOUTME:
-        return <AboutMe />;
-      case IDS.PROJECTS:
-        return <Projects />;
-      case IDS.RESUME:
-        return <Resume />;
-      case IDS.SUMMARY:
-      default:
-        return <Summary />;
-    };
+  updateContent = id => this.setState({ currentContent: id });
+
+  shiftView = (amount) => {
+    this.setState({ shift: Math.max(0, this.state.shift + amount) })
   }
 
   render() {
     return (
-      <div className="App">
-        <TabPanel
-          selected={this.state.currentContent}
-          handleTabClick={content => this.setState({currentContent: content})}
+      <WithHorizontalScrolling onPageMove={this.shiftView}>
+        <WideView
+          currentContent={this.state.currentContent}
+          updateContent={this.updateContent}
+          shift={this.state.shift}
         />
-        {this.renderContent()}
-      </div>
+      </WithHorizontalScrolling>
     );
   }
 }
